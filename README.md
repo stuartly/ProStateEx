@@ -1,2 +1,2 @@
-# ProtocolEx
-repository for protocol extraction project
+# ProtocolState
+repository for protocol state extraction project
