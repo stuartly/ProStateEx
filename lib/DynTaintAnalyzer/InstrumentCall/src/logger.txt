@@ -1,0 +1,187 @@
+[2018-02-09.14:24:03]: Execute tainted instruction: 24
+[2018-02-09.14:24:03]: Execute tainted instruction: 25
+[2018-02-09.14:24:03]: Execute tainted instruction: 26
+[2018-02-09.14:24:03]: Execute tainted instruction: 28
+[2018-02-09.14:24:03]: Execute tainted instruction: 30
+[2018-02-09.14:24:03]: Execute tainted instruction: 32
+[2018-02-09.14:24:03]: Execute tainted instruction: 33
+[2018-02-09.14:24:03]: Execute tainted instruction: 35
+[2018-02-09.14:24:03]: Execute tainted instruction: 36
+[2018-02-09.14:24:03]: Execute tainted instruction: 37
+[2018-02-09.14:24:03]: Execute tainted instruction: 39
+[2018-02-09.14:24:03]: Execute tainted instruction: 0
+[2018-02-09.14:24:03]: Execute tainted instruction: 2
+[2018-02-09.14:24:03]: Execute tainted instruction: 5
+[2018-02-09.14:24:03]: Execute tainted instruction: 6
+[2018-02-09.14:24:03]: Execute tainted instruction: 7
+[2018-02-09.14:24:03]: Execute tainted instruction: 8
+[2018-02-09.14:24:03]: Execute tainted instruction: 9
+[2018-02-09.14:24:03]: Execute tainted instruction: 40
+[2018-02-09.14:24:03]: Execute tainted instruction: 41
+[2018-02-09.14:24:03]: Execute tainted instruction: 42
+25
+26
+27
+29
+31
+33
+34
+36
+37
+38
+40
+0
+2
+5
+6
+7
+8
+9
+41
+42
+43
+44
+52
+26
+27
+28
+30
+32
+34
+35
+37
+38
+39
+41
+0
+2
+5
+6
+7
+8
+9
+42
+43
+44
+45
+63
+26
+27
+28
+30
+32
+34
+35
+37
+38
+39
+41
+0
+2
+5
+6
+7
+8
+9
+42
+43
+44
+45
+63
+26
+27
+28
+30
+32
+34
+35
+37
+38
+39
+41
+0
+2
+5
+6
+7
+8
+9
+42
+43
+44
+45
+69
+26
+27
+28
+30
+32
+34
+35
+37
+38
+39
+41
+0
+2
+5
+6
+7
+8
+9
+42
+43
+44
+45
+69
+26
+27
+28
+30
+32
+34
+35
+37
+38
+39
+41
+0
+2
+5
+6
+7
+8
+9
+42
+43
+44
+45
+68
+27
+28
+29
+31
+33
+35
+36
+38
+39
+40
+42
+0
+2
+5
+6
+7
+8
+9
+43
+44
+45
+46
+73
+74
+76
+77
+78
+79

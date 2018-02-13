@@ -1,0 +1,15 @@
+__isoc99_scanf, 1
+scanf,1
+SSL_read, 1
+fgets, 0
+ConvertMIDI, 0
+ioctl,0
+recv,1
+recvfrom,1
+read,1
+fread,0
+usb_bulk_read, 0
+modbus_read_bits,3
+modbus_set_bits_from_bytes,0
+modbus_receive,1
+coap_receive, 0
