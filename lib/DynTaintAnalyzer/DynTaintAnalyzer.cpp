@@ -1032,6 +1032,7 @@ void DynTaintAnalyzer::DoInstrument() {
             if (F->isDeclaration()) {
                 continue;
             }
+
             for (Function::iterator BI = F->begin(); BI != F->end(); BI++) {
                 if (BasicBlock *BB = &*BI) {
                     for (BasicBlock::iterator II = BB->begin(); II != BB->end(); II++) {

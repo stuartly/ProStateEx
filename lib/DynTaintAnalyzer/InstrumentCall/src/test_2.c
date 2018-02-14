@@ -88,6 +88,8 @@ int main()
 
 
     printf("%d\n", T15);
+
+    printf("hello world\n");
     //UpdateTaintFunSet(&input,4,"main");
 
     return input;

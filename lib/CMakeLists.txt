@@ -19,6 +19,5 @@ add_subdirectory(StateVarIdentifier)
 add_subdirectory(NetworkIO)
 add_subdirectory(GetBasicBlockList)
 add_subdirectory(MakeSymbolicForKlee)
-
-
+add_subdirectory(TaintTracking)
 

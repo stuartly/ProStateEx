@@ -21,6 +21,11 @@
 #include "llvm/IR/CallSite.h"
 #include "Common/Constant.h"
 #include "llvm/IR/IntrinsicInst.h"
+#include "Common/BasicBlockCommon.h"
+#include "Common/FunctionCommon.h"
+#include "Common/InstructionCommon.h"
+
+
 
 
 
@@ -37,7 +42,7 @@ struct StateVarIdentifier : public ModulePass {
 
     virtual bool runOnModule(Module &M);
 
-    virtual void MarkIOFlagToFunction(Module &M, Function *F);
+
 
 
 

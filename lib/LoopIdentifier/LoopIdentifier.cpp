@@ -292,9 +292,9 @@ bool LoopIdentifier::runOnModule(Module &M) {
 
     if (!LoopHeaderOfInterest.empty()) {
         for (auto &ele: LoopHeaderOfInterest) {
-            f_out << "Loop in Function: " << ele.Fun->getName().str() << "\n";
-            f_out << "Loop header ID: " << GetBasicBlockID(ele.block) << "\n";
-            f_out << "Inst in Loop: " << printSrcCodeInfo(ele.inst) << "\n";
+            f_out << ele.Fun->getName().str() << ",";    //FunName
+            f_out << GetBasicBlockID(ele.block) << "\n"; //LoopHeaderID
+           // f_out << "Inst in Loop: " << printSrcCodeInfo(ele.inst) << "\n";
         }
     }
 
