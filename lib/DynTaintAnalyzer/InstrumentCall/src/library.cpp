@@ -8,6 +8,10 @@
 std::set<std::pair<unsigned long, unsigned int>> TaintValueSet;
 std::set<int> TaintInstSet;
 
+void isValue(Value* va){
+    printf("I am a value\n");
+}
+
 
 // Get current date/time, format is YYYY-MM-DD.HH:mm:ss
 const std::string currentDateTime() {
@@ -15,8 +19,6 @@ const std::string currentDateTime() {
     struct tm tstruct;
     char buf[80];
     tstruct = *localtime(&now);
-    // Visit http://en.cppreference.com/w/cpp/chrono/c/strftime
-    // for more information about date/time format
     strftime(buf, sizeof(buf), "%Y-%m-%d.%X", &tstruct);
 
     return buf;

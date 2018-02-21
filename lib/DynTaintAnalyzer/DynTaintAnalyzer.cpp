@@ -227,6 +227,7 @@ void DynTaintAnalyzer::Init_Instrument_Function() {
             /*Linkage=*/GlobalValue::ExternalLinkage,
             /*Name=*/"PropagateTaintAddrToReg", this->pModule);
 
+
 }
 
 void DynTaintAnalyzer::InitForInstument() {
@@ -496,6 +497,11 @@ int DynTaintAnalyzer::insertPropagateTaintAddrToReg(Value *memSrcValue, Instruct
 
 int DynTaintAnalyzer::insertPropagateTaint(Value *src, Value *dest, Instruction *location) {
 
+    if (isa<Argument>(src)) {
+        //errs() << "I am an arugment\n";
+    }
+
+    //constant->Reg
     if ((isa<ConstantInt>(src) || isa<ConstantFP>(src)) && (isa<Instruction>(dest))) {
 
         Instruction *destInst = dyn_cast<Instruction>(dest);
@@ -506,8 +512,7 @@ int DynTaintAnalyzer::insertPropagateTaint(Value *src, Value *dest, Instruction 
         }
     }
 
-
-    //constant->addr;
+    //constant->addr
     if ((isa<ConstantInt>(src) || isa<ConstantFP>(src)) && isa<GlobalVariable>(dest)) {
         if (insertRemoveTaintAddr(dest, location) == -1) {
             errs() << "fail to insertRemoveTaintAddr in: \n";
@@ -566,56 +571,21 @@ int DynTaintAnalyzer::insertPropagateTaint(Value *src, Value *dest, Instruction 
 int DynTaintAnalyzer::PrintTaintInst(Instruction *Inst) {
 
     int inst_id = GetInstructionID(Inst);
-    if (inst_id == -1) {
 
-        return -1;
-    }
 
     if (isa<TerminatorInst>(Inst)) {
-
         string inst_id_str = std::to_string(inst_id);
         ConstantInt *const_int32_16 = ConstantInt::get(this->pModule->getContext(),
                                                        APInt(32, StringRef(inst_id_str), 10));
         CallInst *void_63 = CallInst::Create(this->func_printTaint, const_int32_16, "", Inst);
 
-    } else if (CallInst *call = dyn_cast<CallInst>(Inst)) {
-
-        CallSite ci(call);
-        Function *callee = dyn_cast<Function>(ci.getCalledValue()->stripPointerCasts());
-
-        if (callee && !callee->getReturnType()->isVoidTy() && callee->isDeclaration() == false) {
-
-            string inst_id_str = std::to_string(inst_id);
-            ConstantInt *const_int32_16 = ConstantInt::get(this->pModule->getContext(),
-                                                           APInt(32, StringRef(inst_id_str), 10));
-            CallInst *void_63 = CallInst::Create(this->func_printTaint, const_int32_16, "",
-                                                 Inst->getNextNode()->getNextNode());
-        } else {
-            string inst_id_str = std::to_string(inst_id);
-            ConstantInt *const_int32_16 = ConstantInt::get(this->pModule->getContext(),
-                                                           APInt(32, StringRef(inst_id_str), 10));
-            CallInst *void_63 = CallInst::Create(this->func_printTaint, const_int32_16, "",
-                                                 Inst->getNextNode());
-        }
     } else if (PHINode *phi = dyn_cast<PHINode>(Inst)) {
 
-//        string inst_id_str = std::to_string(inst_id);
-//        ConstantInt *const_int32_16 = ConstantInt::get(this->pModule->getContext(),
-//                                                       APInt(32, StringRef(inst_id_str), 10));
-//
-//        for (int i = 0; i < phi->getNumIncomingValues(); i++) {
-//
-//            Inst = Inst->getNextNode();
-//            Inst->dump();
-//        }
-//
-//        if (isa<TerminatorInst>(Inst)) {
-//            CallInst *void_63 = CallInst::Create(this->func_printTaint, const_int32_16, "",
-//                                                 Inst);
-//        } else {
-//            CallInst *void_63 = CallInst::Create(this->func_printTaint, const_int32_16, "",
-//                                                 Inst->getNextNode());
-//        }
+        string inst_id_str = std::to_string(inst_id);
+        ConstantInt *const_int32_16 = ConstantInt::get(this->pModule->getContext(),
+                                                       APInt(32, StringRef(inst_id_str), 10));
+        CallInst *void_63 = CallInst::Create(this->func_printTaint, const_int32_16, "",
+                                             Inst->getParent()->getFirstNonPHI());
 
 
     } else {
@@ -668,17 +638,6 @@ int DynTaintAnalyzer::TaintPropagate(Instruction *Inst) {
     if (GetInstructionID(Inst) == -1) {
         return 0;
     }
-
-    if (AtomicCmpXchgInst *atomCmpchg = dyn_cast<AtomicCmpXchgInst>(Inst)) {
-
-        errs() << "AtomicCmpXchgInst" << "\n";
-    }
-
-    if (AtomicRMWInst *atomRMW = dyn_cast<AtomicRMWInst>(Inst)) {
-
-        errs() << "AtomicRMWInst" << "\n";
-    }
-
 
     if (BinaryOperator *binOP = dyn_cast<BinaryOperator>(Inst)) {
         for (int i = 0; i < binOP->getNumOperands(); i++) {
@@ -808,6 +767,7 @@ int DynTaintAnalyzer::TaintPropagate(Instruction *Inst) {
         }
     }
 
+
     if (ExtractElementInst *extrEle = dyn_cast<ExtractElementInst>(Inst)) {
         Value *src = extrEle->getOperand(0);
         Value *dest = extrEle;
@@ -816,22 +776,6 @@ int DynTaintAnalyzer::TaintPropagate(Instruction *Inst) {
             printSrcCodeInfo(Inst);
             return -1;
         };
-    }
-
-
-    if (FenceInst *fence = dyn_cast<FenceInst>(Inst)) {
-
-    }
-
-
-    //FuncletPadInst, including CleanupPadInst, CatchPadInst
-    if (CleanupPadInst *clrPad = dyn_cast<CleanupPadInst>(Inst)) {
-
-    }
-
-
-    if (CatchPadInst *catchPad = dyn_cast<CatchPadInst>(Inst)) {
-
     }
 
 
@@ -870,35 +814,28 @@ int DynTaintAnalyzer::TaintPropagate(Instruction *Inst) {
     }
 
 
-    if (LandingPadInst *landPad = dyn_cast<LandingPadInst>(Inst)) {
-
-    }
-
-
     if (PHINode *phi = dyn_cast<PHINode>(Inst)) {
-//        for (int i = 0; i < phi->getNumIncomingValues(); i++) {
-//            Value *src = phi->getIncomingValue(i);
-//            Value *dest = phi;
-//            if (insertPropagateTaint(src, dest, Inst->getNextNode()) == -1) {
-//                errs() << "fail to insertPropagateTaint in: \n";
-//                printSrcCodeInfo(Inst);
-//                return -1;
-//            };
-//        }
+        for (int i = 0; i < phi->getNumIncomingValues(); i++) {
+            Value *src = phi->getIncomingValue(0);
+            Value *dest = phi;
+            if (insertPropagateTaint(src, dest, Inst->getParent()->getFirstNonPHI()) == -1) {
+                errs() << "fail to insertPropagateTaint in: \n";
+                printSrcCodeInfo(Inst);
+                return -1;
+            };
+        }
     }
 
     if (SelectInst *select = dyn_cast<SelectInst>(Inst)) {
-//        for(int i=1;i<select->getNumOperands();i++) {
-//            Value *src = select->getOperand(i);
-//            Value *dest = select;
-//            if (insertPropagateTaint(src, dest, Inst) == -1) {
-//                errs() << "fail to insertPropagateTaint in: \n";
-//                printSrcCodeInfo(Inst);
-//                return -1;
-//            };
-//        }
-
-
+        for (int i = 1; i < select->getNumOperands(); i++) {
+            Value *src = select->getOperand(i);
+            Value *dest = select;
+            if (insertPropagateTaint(src, dest, Inst) == -1) {
+                errs() << "fail to insertPropagateTaint in: \n";
+                printSrcCodeInfo(Inst);
+                return -1;
+            };
+        }
     }
 
 
@@ -917,6 +854,8 @@ int DynTaintAnalyzer::TaintPropagate(Instruction *Inst) {
             return -1;
         };
 
+
+
         //taint: dest->storeInst
         if (insertPropagateTaint(dest, Inst, Inst) == -1) {
             errs() << "fail to insertPropagateTaint in: \n";
@@ -928,11 +867,6 @@ int DynTaintAnalyzer::TaintPropagate(Instruction *Inst) {
 
 
     //UnaryInstruction
-    if (AllocaInst *alloc = dyn_cast<AllocaInst>(Inst)) {
-
-    }
-
-
     if (LoadInst *load = dyn_cast<LoadInst>(Inst)) {
         Value *src = load->getOperand(0);
         Value *dest = load;
@@ -941,7 +875,6 @@ int DynTaintAnalyzer::TaintPropagate(Instruction *Inst) {
             printSrcCodeInfo(Inst);
             return -1;
         };
-
     }
 
     //ExtractValueInst
@@ -953,11 +886,6 @@ int DynTaintAnalyzer::TaintPropagate(Instruction *Inst) {
             printSrcCodeInfo(Inst);
             return -1;
         };
-    }
-
-
-    if (VAArgInst *VAA = dyn_cast<VAArgInst>(Inst)) {
-
     }
 
 
@@ -973,10 +901,6 @@ int DynTaintAnalyzer::TaintPropagate(Instruction *Inst) {
 
 
     //TerminatorInst in the following:
-    if (InvokeInst *invoke = dyn_cast<InvokeInst>(Inst)) {
-
-    }
-
     if (ResumeInst *resume = dyn_cast<ResumeInst>(Inst)) {
 
     }
@@ -986,7 +910,7 @@ int DynTaintAnalyzer::TaintPropagate(Instruction *Inst) {
         if (!fun->getReturnType()->isVoidTy()) {
             Value *src = ret->getReturnValue();
             Value *dest = ret;
-            if (insertPropagateTaint(src, dest, Inst) == -1) {
+            if (insertPropagateTaint(src, dest, Inst->getPrevNode()) == -1) {
                 errs() << "fail to insertPropagateTaint in: \n";
                 printSrcCodeInfo(Inst);
                 return -1;
@@ -994,33 +918,6 @@ int DynTaintAnalyzer::TaintPropagate(Instruction *Inst) {
         }
     }
 
-    if (SwitchInst *swit = dyn_cast<SwitchInst>(Inst)) {
-
-    }
-
-    if (UnreachableInst *unreach = dyn_cast<UnreachableInst>(Inst)) {
-
-    }
-
-    if (BranchInst *br = dyn_cast<BranchInst>(Inst)) {
-
-    }
-
-    if (CatchReturnInst *catchRet = dyn_cast<CatchReturnInst>(Inst)) {
-
-    }
-
-    if (CatchSwitchInst *catchSwit = dyn_cast<CatchSwitchInst>(Inst)) {
-
-    }
-
-    if (CleanupReturnInst *cleanRet = dyn_cast<CleanupReturnInst>(Inst)) {
-
-    }
-
-    if (IndirectBrInst *indirectRr = dyn_cast<IndirectBrInst>(Inst)) {
-
-    }
 
     return 0;
 }
@@ -1046,16 +943,16 @@ void DynTaintAnalyzer::DoInstrument() {
 #ifdef Debug
                             // Inst->dump();
 #endif
+                            if (PrintTaintInst(Inst) == -1) {
+                                errs() << "Error: Failed to TaintPropagate in " << Inst->getName() << "\n";
+                            };
+
 
                             if (TaintSeed(Inst) == -1) {
                                 errs() << "Error: Failed to TaintSeed in " << Inst->getName() << "\n";
                             };
 
                             if (TaintPropagate(Inst) == -1) {
-                                errs() << "Error: Failed to TaintPropagate in " << Inst->getName() << "\n";
-                            };
-
-                            if (PrintTaintInst(Inst) == -1) {
                                 errs() << "Error: Failed to TaintPropagate in " << Inst->getName() << "\n";
                             };
 

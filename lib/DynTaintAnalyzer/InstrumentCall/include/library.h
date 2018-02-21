@@ -12,6 +12,30 @@
 #include <string.h>
 #include <iostream>
 #include <fstream>
+#include <set>
+#include <string>
+#include <ostream>
+#include <fstream>
+
+#include "llvm/Pass.h"
+#include "llvm/IR/DebugInfo.h"
+#include "llvm/IR/Constants.h"
+#include "llvm/IR/InstIterator.h"
+#include "llvm/Analysis/LoopInfo.h"
+#include "llvm/Analysis/PostDominators.h"
+#include "llvm/Support/CommandLine.h"
+#include "llvm/Support/raw_ostream.h"
+#include "llvm/Analysis/LoopInfo.h"
+#include "llvm/Analysis/PostDominators.h"
+#include <boost/algorithm/string.hpp>
+#include "llvm/IR/MDBuilder.h"
+#include "llvm/IR/CallSite.h"
+#include "llvm/IR/IntrinsicInst.h"
+#include "llvm/Analysis/CallGraph.h"
+
+
+using namespace llvm;
+using namespace std;
 
 
 #ifdef __cplusplus
@@ -20,6 +44,7 @@ using namespace std;
 
 extern "C" {
 
+void isValue(Value* va);
 
 bool isTaintAddr(void *memory_addr, unsigned int offset);
 void MarkTaintAddr(void *memory_addr, unsigned int offset);
