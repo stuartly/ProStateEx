@@ -1,0 +1,23 @@
+Conditions (AND):
+
+struct.MIDI_MSG(0) == 128
+//---/home/songlh/workspace/protocol/ProtocolEx/stubs/midilib/m2rtttl.c: 176
+Argument 2 == struct.MIDI_MSG(8, 1)
+//---/home/songlh/workspace/protocol/ProtocolEx/stubs/midilib/m2rtttl.c: 179
+State == struct.MIDI_MSG(8, 0)
+//---/home/songlh/workspace/protocol/ProtocolEx/stubs/midilib/m2rtttl.c: 181
+Action :
+
+State = -1
+==========================================
+Conditions (AND):
+
+struct.MIDI_MSG(0) == 144
+//---/home/songlh/workspace/protocol/ProtocolEx/stubs/midilib/m2rtttl.c: 176
+Argument 2 == struct.MIDI_MSG(8, 1)
+//---/home/songlh/workspace/protocol/ProtocolEx/stubs/midilib/m2rtttl.c: 191
+Action :
+
+State = struct.MIDI_MSG(8, 0)
+//---/home/songlh/workspace/protocol/ProtocolEx/stubs/midilib/m2rtttl.c: 201
+==========================================

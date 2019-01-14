@@ -1,0 +1,6 @@
+0 	State == -1
+1 	State == struct.MIDI_MSG(8, 0)
+--------------------------------------------------------------------------
+1_0 	struct.MIDI_MSG(0) == 128\nArgument 2 == struct.MIDI_MSG(8, 1)\nState == struct.MIDI_MSG(8, 0)
+0_1 	struct.MIDI_MSG(0) == 144\nArgument 2 == struct.MIDI_MSG(8, 1)
+1_1 	struct.MIDI_MSG(0) == 144\nArgument 2 == struct.MIDI_MSG(8, 1)
