@@ -1,2 +1,0 @@
-/usr/bin/ar qc libInstrumentCall.a  CMakeFiles/InstrumentCall.dir/src/library.o
-/usr/bin/ranlib libInstrumentCall.a

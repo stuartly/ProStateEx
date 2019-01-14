@@ -1,4 +1,0 @@
-/home/lzs243/Documents/ProtocolEx/lib/DynTaintAnalyzer/InstrumentCall/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/lzs243/Documents/ProtocolEx/lib/DynTaintAnalyzer/InstrumentCall/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/lzs243/Documents/ProtocolEx/lib/DynTaintAnalyzer/InstrumentCall/cmake-build-debug/CMakeFiles/testlib.dir
-/home/lzs243/Documents/ProtocolEx/lib/DynTaintAnalyzer/InstrumentCall/cmake-build-debug/CMakeFiles/InstrumentCall.dir
