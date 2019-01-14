@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.1)
-project(ProtocolEx)
+project(ProtocolState)
 
 set(CMAKE_CXX_STANDARD 11)
 
