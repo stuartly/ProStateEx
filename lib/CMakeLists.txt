@@ -20,4 +20,4 @@ add_subdirectory(NetworkIO)
 add_subdirectory(GetBasicBlockList)
 add_subdirectory(MakeSymbolicForKlee)
 add_subdirectory(TaintTracking)
-
+add_subdirectory(LongestPath)
