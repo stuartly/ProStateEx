@@ -1,0 +1,7 @@
+{
+    "CFGTest" : {
+        enable=true
+        list1=%30
+        list2=%8
+    }
+}
