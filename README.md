@@ -1,2 +1,2 @@
-# ProEx
-repository for protocol extraction
+# ProStateEx
+Protocol State Extraction
